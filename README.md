@@ -10,6 +10,8 @@
 - composer install
 - php artisan migrate --seed
 - we can use postman to test the payload
+- cp .env.example .env
+- change the env file and create a custom database as needed.(I have used Mysql-8) 
 
 
 ## API End Points
