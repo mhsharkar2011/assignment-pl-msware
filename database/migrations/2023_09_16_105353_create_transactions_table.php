@@ -18,8 +18,15 @@ return new class extends Migration
             $table->enum('transaction_type',[Type::Individual,Type::Business]);
             $table->double('amount')->nullable();
             $table->decimal('fee')->nullable();
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->timestamps();
+        // Define the foreign key constraint
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->cascadeOnUpdate()
+            ->cascadeOnDelete();
+            $table->softDeletes();
         });
     }
 

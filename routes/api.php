@@ -23,3 +23,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('users',UserController::class);
 Route::resource('transactions',TransactionController::class);
+
+// deposit
+Route::get('deposit', [UserController::class,'showDeposit'])->name('user-deposit-show');
+Route::post('deposit', [UserController::class,'deposit'])->name('user-deposit');
+
+// withdrawal
+Route::post('withdrawal', [UserController::class,'withdrawal'])->name('user-withdrawal');
+

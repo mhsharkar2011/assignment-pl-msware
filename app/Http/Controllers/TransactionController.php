@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transactions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -12,7 +13,28 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transactions::all();
+        $transactions = DB::table('users AS u')
+            ->select(
+                'u.id AS user_id',
+                'u.name AS user_name',
+                'u.account_type',
+                't.id AS transaction_id',
+                't.amount',
+                't.fee',
+                't.date',
+                DB::raw('SUM(
+                            CASE
+                                WHEN u.account_type = "Individual" THEN (t.amount - t.fee)
+                                WHEN u.account_type = "Business" THEN (t.amount - t.fee)
+                                ELSE 0
+                            END
+                            ) OVER (PARTITION BY u.id ORDER BY t.date) AS balance')
+            )
+            ->leftJoin('transactions AS t', 'u.id', '=', 't.user_id')
+            ->orderBy('u.id')
+            ->orderBy('t.date')
+            ->get();
+
         return response()->json($transactions);
     }
 
@@ -29,7 +51,8 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $transaction = Transactions::create($request->all());
+        return response()->json($transaction, 200);
     }
 
     /**
@@ -37,7 +60,6 @@ class TransactionController extends Controller
      */
     public function show(Transactions $transactions)
     {
-        //
     }
 
     /**
