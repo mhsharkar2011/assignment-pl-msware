@@ -14,19 +14,11 @@
 
 ## API End Points
 
-### Shops APIs
+### Individual APIs
 
-- Shop - LIST   >> http://host_name/api/shops
-- Shop - SHOW   >> http://host_name/api/shops/{id}
-- Shop - CREATE >> http://host_name/api/shops
-- Shop - UPDATE >> http://host_name/api/shops/{id}
-- Shop - DELETE >> http://host_name/api/shops{id}
 
-### Seller APIs
 
-- seller - LIST   >> http://host_name/api/sellers
-- seller - SHOW   >> http://host_name/api/sellers/{id}
-- seller - CREATE >> http://host_name/api/sellers
-- seller - UPDATE >> http://host_name/api/sellers/{id}
-- seller - DELETE >> http://host_name/api/sellers{id}
+### Business APIs
+
+
 
