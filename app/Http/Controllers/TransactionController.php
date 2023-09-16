@@ -60,6 +60,7 @@ class TransactionController extends Controller
      */
     public function show(Transactions $transactions)
     {
+        return response()->json($transactions->with('user')->first());
     }
 
     /**
